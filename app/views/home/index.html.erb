@@ -1,2 +1,67 @@
-<h1>Home#index</h1>
+<h1>Home index</h1>
 <p>Find me in app/views/home/index.html.erb</p>
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <!-- Add your CSS and JS dependencies here -->
+    </head>
+  <!-- Display the list of scrappers -->
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <%= link_to 'Rent-House', "#", class: 'navbar-brand' %>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span> 
+      </button>
+      <button type="button" class="btn btn-light"><%= link_to "Sign Up", destroy_user_session_path %></button> 
+    </div>
+  </nav>
+<body>
+  <div class="container-fluid" style="background-color: rgba(255, 255, 255, 0.8);">
+    <div class="container ct-u-paddingTop40 ct-u-paddingBottom100">
+      <div class="row justify-content-center">
+
+        <!-- Cards for 3 Marla, 5 Marla, and 15 Marla -->
+            <div class="col-md-4 mt-5">
+            <div class="card mb-4">
+                <%= image_tag 'first.jpg', class: 'card-img-top opacity-50', alt: '3 Marla House Image', size: '300x200' %>
+                <div class="card-body text-center">
+                    <h5 class="card-title">3 Marla</h5>
+                    <p class="card-text">Description of 3 Marla property.</p>
+                    <%= link_to "View Details", show_path(marla_size: "3"), class: "btn btn-primary" %>
+                </div>
+            </div>
+            </div>
+
+
+            <div class="col-md-4 mt-5">
+                <div class="card mb-4">
+                    <%= image_tag 'second.jpg', class: 'card-img-top opacity-50', alt: '5 Marla House Image', size: '300x200' %>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">5 Marla</h5>
+                        <p class="card-text">Description of 5 Marla property.</p>
+                        <%= link_to "View Details", show_path(marla_size: "5"), class: "btn btn-success" %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mt-5">
+                <div class="card mb-4">
+                    <%= image_tag 'third.jpg', class: 'card-img-top opacity-50', alt: '15 Marla House Image', size: '300x200' %>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">15 Marla</h5>
+                        <p class="card-text">Description of 15 Marla property.</p>
+                        <%= link_to "View Details", show_path(marla_size: "15"), class: "btn btn-warning" %>
+                    </div>
+                </div>
+            </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,2 +1,101 @@
 <h1>You're logged in! Welcome to the Home!</h1>
 <%= link_to "Sign Out", destroy_user_session_path %>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+   <ul class="navbar-nav ml-auto">
+      <li class="nav-item navbar-brand active">
+        <%= link_to 'Rent-House', root_path, class: 'nav-link active' %>
+      </li>
+    </ul>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <%= link_to 'Home', root_path, class: 'nav-link active' %>
+      </li>
+    </ul>
+  </div>
+
+<div class="ml-auto px-3">
+  <%= form_tag show_path, method: :get do %>
+    <div class="input-group">
+      <%= number_field_tag :user_min_range, nil, class: "form-control", placeholder: "Min Price: #{@min_price}", min: @min, max: @max, step: "5000", style: "width: 190px;", id: "user_min_range" %>
+      <%= hidden_field_tag :marla_size, params[:marla_size] %>
+      <%= number_field_tag :user_max_range, nil, class: "form-control", placeholder: "Max Price: #{@max_price}", min: @min, max: @max, step: "5000", style: "width: 190px;", id: "user_max_range" %>
+      <%= submit_tag "Filter", class: "btn btn-warning", style: "background-color: #ffc107; border-color: #ffc107;" %>
+    </div>
+  <% end %>
+</div>
+</nav>
+
+
+
+
+<div class="container mt-3">
+  <h3 class="text-center"> Area: <%= params[:marla_size] %> </h3>
+  <div class="row">
+    <% if @scrappers.present? %>
+      <% @scrappers.each do |scrapper| %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <% if scrapper.image.present? %>
+            <div style="height: 250px;">
+              <%= image_tag scrapper.image, class: "card-img-top img-fluid rounded", alt: "Property Image" , style: "max-height: 250px; max-width: 100%;"  %>
+            </div>
+            <% else %>
+            <div style="height: 250px">
+              <%= image_tag "https://images.zameen.com/smap/800/600/31.463074/74.321506/image.jpeg?quality=80&imageformat=jpeg", class: "card-img-top img-fluid rounded", alt: "Default Image", style: "max-height: 250px; max-width: 100%;" %>
+            </div>
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title"><%= scrapper.price %></h5>
+              <p class="card-text">Bed: <%= scrapper.bed %> bath: <%= scrapper.bath %></p>
+              <div style="height: 60px;">
+              <p class="card-text"><%= scrapper.location %></p>
+            </div>
+              <%= link_to "View Description", description_path(id: scrapper.id), class: "btn btn-success" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+  <div class="container mt-4">
+    <div class="text-center">
+        <h1 class="display-4 font-weight-bold">NO PAGE FOUND for <%= @marla_size %> Marla!</h1>
+    </div>
+  </div>
+    <% end %>
+  </div>
+  
+ <div class="d-flex align-items-center justify-content-center " style="height: 250px;">
+    <div> <td > <%= paginate @scrappers %> </td> </div>
+</div> 
+</div>
+
+
+ <footer class="bg-dark text-white text-center py-3">
+    <p>&copy; 2023 Your Website. All rights reserved.</p>
+  </footer>
+
+
+<script>
+  const userMinRangeInput = document.getElementById("user_min_range");
+  const userMaxRangeInput = document.getElementById("user_max_range");
+
+  userMinRangeInput.addEventListener("input", function() {
+    const selectedMin = parseFloat(this.value);
+    userMaxRangeInput.min = selectedMin;
+    if (selectedMin > parseFloat(userMaxRangeInput.value)) {
+      userMaxRangeInput.value = selectedMin;
+    }
+  });
+
+  userMaxRangeInput.addEventListener("input", function() {
+    const selectedMax = parseFloat(this.value);
+    userMinRangeInput.max = selectedMax;
+    if (selectedMax < parseFloat(userMinRangeInput.value)) {
+      userMinRangeInput.value = selectedMax;
+    }
+  });
+</script>
